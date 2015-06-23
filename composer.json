@@ -1,0 +1,23 @@
+{
+    "name": "maba/mail-renderer-bundle",
+    "description": "Symfony bundle for easier email sending",
+    "keywords": ["mail", "mailer", "email"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Marius Balčytis",
+            "email": "marius.balcytis@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"Maba\\Bundle\\MailRendererBundle\\": "src/"}
+    },
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/framework-bundle": "^2.3",
+        "twig/twig": "~1.0",
+        "nickcernis/html-to-markdown": "^2.2",
+        "jimbojsb/emogrify": "dev-master",
+        "symfony/swiftmailer-bundle": "^2.3"
+    }
+}

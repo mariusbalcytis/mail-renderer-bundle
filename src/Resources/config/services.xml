@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="maba_mail_renderer.formatted_message_mailer"
+                 class="Maba\Bundle\MailRendererBundle\Service\FormattedMessageMailer">
+            <argument type="service" id="mailer"/>
+            <argument type="service" id="twig"/>
+            <argument type="service" id="maba_mail_renderer.converter.markdown"/>
+            <argument>%maba_mail_renderer.formatted_message_mailer.from_email%</argument>
+            <argument>%maba_mail_renderer.formatted_message_mailer.from_name%</argument>
+        </service>
+
+        <service id="maba_mail_renderer.style_to_inline_converter"
+                 class="Maba\Bundle\MailRendererBundle\InlineCss\StyleToInlineConverter">
+            <argument type="service">
+                <service class="Emogrify\Emogrifier"/>
+            </argument>
+        </service>
+
+        <service id="maba_mail_renderer.converter.markdown" class="Maba\Bundle\MailRendererBundle\Converter\HtmlToMarkdown"/>
+
+        <service id="maba_mail_renderer.filter.inline_css" class="Maba\Bundle\MailRendererBundle\Filter\InlineCssFilter"
+                 public="false">
+            <argument type="service" id="assetic.asset_manager"/>
+            <argument type="service" id="maba_mail_renderer.style_to_inline_converter"/>
+            <argument>%maba_mail_renderer.filter.inline_css.asset%</argument>
+        </service>
+
+        <service id="maba_mail_renderer.filter.styles_tag" class="Maba\Bundle\MailRendererBundle\Filter\StylesTagFilter"
+                 public="false">
+            <argument type="service" id="assetic.asset_manager"/>
+            <argument>%maba_mail_renderer.filter.styles_tag.asset%</argument>
+        </service>
+    </services>
+</container>
