@@ -21,7 +21,7 @@ class StylesTagFilter implements FilterInterface
      * @param AssetManager $assetManager
      * @param string $cssAsset
      */
-    public function setAssets(
+    public function __construct(
         AssetManager $assetManager,
         $cssAsset
     ) {

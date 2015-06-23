@@ -19,5 +19,8 @@
         "nickcernis/html-to-markdown": "^2.2",
         "jimbojsb/emogrify": "dev-master",
         "symfony/swiftmailer-bundle": "^2.3"
+    },
+    "suggest": {
+        "symfony/assetic-bundle": "^2.6"
     }
 }

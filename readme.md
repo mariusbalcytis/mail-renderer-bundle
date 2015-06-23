@@ -13,7 +13,7 @@ Symfony bundle that collects some libraries together to make sending emails easi
 
 Add via composer:
 
-    composer require maba/mail-renderer-bundle
+    composer require maba/mail-renderer-bundle jimbojsb/emogrify:@dev
 
 Register bundle:
 

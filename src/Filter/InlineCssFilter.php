@@ -28,7 +28,7 @@ class InlineCssFilter implements FilterInterface
      * @param StyleToInlineConverter $styleToInlineConverter
      * @param string $cssAsset
      */
-    public function setAssets(
+    public function __construct(
         AssetManager $assetManager,
         StyleToInlineConverter $styleToInlineConverter,
         $cssAsset

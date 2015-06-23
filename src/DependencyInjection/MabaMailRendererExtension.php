@@ -27,9 +27,6 @@ class MabaMailRendererExtension extends Extension
         $loader->load('services.xml');
 
         if (isset($config['css_assets']['inline'])) {
-            if (!$container->hasDefinition('assetic.asset_manager')) {
-                throw new \InvalidArgumentException('Cannot use css_assets without AsseticBundle');
-            }
             $container->setParameter('maba_mail_renderer.filter.inline_css.asset', $config['css_assets']['inline']);
             $container->getDefinition('maba_mail_renderer.formatted_message_mailer')
                 ->addMethodCall('addHtmlFilter', array(
@@ -39,9 +36,6 @@ class MabaMailRendererExtension extends Extension
         }
 
         if (isset($config['css_assets']['imports'])) {
-            if (!$container->hasDefinition('assetic.asset_manager')) {
-                throw new \InvalidArgumentException('Cannot use css_assets without AsseticBundle');
-            }
             $container->setParameter('maba_mail_renderer.filter.styles_tag.asset', $config['css_assets']['imports']);
             $container->getDefinition('maba_mail_renderer.formatted_message_mailer')
                 ->addMethodCall('addHtmlFilter', array(
