@@ -24,7 +24,7 @@ class Configuration implements ConfigurationInterface
         $cssAssetsNode->scalarNode('inline')->defaultNull();
         $cssAssetsNode->scalarNode('imports')->defaultNull();
 
-        $fromNode = $rootNode->children()->arrayNode('from')->children();
+        $fromNode = $rootNode->children()->arrayNode('from')->addDefaultsIfNotSet()->children();
         $fromNode->scalarNode('email')->defaultNull();
         $fromNode->scalarNode('name')->defaultNull();
 
