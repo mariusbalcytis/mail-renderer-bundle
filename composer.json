@@ -18,9 +18,7 @@
         "twig/twig": "~1.0",
         "nickcernis/html-to-markdown": "^2.2",
         "jimbojsb/emogrify": "dev-master#5f323d2880e5df7de273c15e2a98e7c77a3cfba3",
-        "symfony/swiftmailer-bundle": "^2.3"
-    },
-    "suggest": {
+        "symfony/swiftmailer-bundle": "^2.3",
         "symfony/assetic-bundle": "^2.6"
     }
 }
