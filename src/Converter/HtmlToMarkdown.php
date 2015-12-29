@@ -14,6 +14,6 @@ class HtmlToMarkdown implements HtmlToTextInterface
     public function convert($html)
     {
         $markdown = new \HTML_To_Markdown($html);
-        return $markdown->output();
+        return strip_tags($markdown->output());
     }
 }
