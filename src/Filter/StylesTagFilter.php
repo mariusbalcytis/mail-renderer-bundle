@@ -2,14 +2,11 @@
 
 namespace Maba\Bundle\MailRendererBundle\Filter;
 
-use Assetic\AssetManager;
+use Maba\Bundle\MailRendererBundle\Asset\AssetProviderInterface;
 
 class StylesTagFilter implements FilterInterface
 {
-    /**
-     * @var AssetManager
-     */
-    protected $assetManager;
+    protected $assetProvider;
 
     /**
      * @var string name of asset to include in emails in <style> tag
@@ -18,20 +15,20 @@ class StylesTagFilter implements FilterInterface
 
 
     /**
-     * @param AssetManager $assetManager
+     * @param AssetProviderInterface $assetProvider
      * @param string $cssAsset
      */
     public function __construct(
-        AssetManager $assetManager,
+        AssetProviderInterface $assetProvider,
         $cssAsset
     ) {
-        $this->assetManager = $assetManager;
+        $this->assetProvider = $assetProvider;
         $this->cssAsset = $cssAsset;
     }
 
     public function filter($content)
     {
-        $css = $this->assetManager->get($this->cssAsset)->dump();
+        $css = $this->assetProvider->getAssetContent($this->cssAsset);
         $inlineStyles = '<style>' . htmlspecialchars($css, ENT_QUOTES, 'UTF-8') . '</style>';
         $i = strpos($content, '</head>');
         if ($i === false) {

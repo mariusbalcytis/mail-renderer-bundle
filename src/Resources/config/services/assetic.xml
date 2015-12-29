@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="maba_mail_renderer.asset_provider.assetic"
+                 class="Maba\Bundle\MailRendererBundle\Asset\Assetic\AsseticAssetProvider"
+                 public="false">
+            <argument type="service" id="maba_mail_renderer.assetic.asset_file_path_provider"/>
+        </service>
+
+        <service id="maba_mail_renderer.assetic.asset_file_path_provider"
+                 class="Maba\Bundle\MailRendererBundle\Asset\Assetic\AssetFilePathProvider">
+            <argument>%kernel.cache_dir%</argument>
+        </service>
+
+        <service id="maba_mail_renderer.assetic.asset_cache_warmer"
+                 class="Maba\Bundle\MailRendererBundle\Asset\Assetic\AssetCacheWarmer">
+            <tag name="kernel.cache_warmer"/>
+
+            <argument type="service" id="assetic.asset_manager"/>
+            <argument type="service" id="maba_mail_renderer.assetic.asset_file_path_provider"/>
+            <argument type="collection">
+                <argument>%maba_mail_renderer.filter.inline_css.asset%</argument>
+                <argument>%maba_mail_renderer.filter.styles_tag.asset%</argument>
+            </argument>
+        </service>
+    </services>
+</container>

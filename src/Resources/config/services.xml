@@ -4,10 +4,15 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <imports>
+        <import resource="services/assetic.xml"/>
+    </imports>
+
     <parameters>
         <parameter key="maba_mail_renderer.filter.inline_css.asset"/>
         <parameter key="maba_mail_renderer.filter.styles_tag.asset"/>
     </parameters>
+
     <services>
         <service id="maba_mail_renderer.formatted_message_mailer"
                  class="Maba\Bundle\MailRendererBundle\Service\FormattedMessageMailer">
@@ -25,19 +30,23 @@
             </argument>
         </service>
 
-        <service id="maba_mail_renderer.converter.markdown" class="Maba\Bundle\MailRendererBundle\Converter\HtmlToMarkdown"/>
+        <service id="maba_mail_renderer.converter.markdown"
+                 class="Maba\Bundle\MailRendererBundle\Converter\HtmlToMarkdown"/>
 
         <service id="maba_mail_renderer.filter.inline_css" class="Maba\Bundle\MailRendererBundle\Filter\InlineCssFilter"
                  public="false">
-            <argument type="service" id="assetic.asset_manager"/>
+            <argument type="service" id="maba_mail_renderer.asset_provider"/>
             <argument type="service" id="maba_mail_renderer.style_to_inline_converter"/>
             <argument>%maba_mail_renderer.filter.inline_css.asset%</argument>
         </service>
 
         <service id="maba_mail_renderer.filter.styles_tag" class="Maba\Bundle\MailRendererBundle\Filter\StylesTagFilter"
                  public="false">
-            <argument type="service" id="assetic.asset_manager"/>
+            <argument type="service" id="maba_mail_renderer.asset_provider"/>
             <argument>%maba_mail_renderer.filter.styles_tag.asset%</argument>
         </service>
+
+        <service id="maba_mail_renderer.asset_provider" alias="maba_mail_renderer.asset_provider.assetic"
+            public="false"/>
     </services>
 </container>

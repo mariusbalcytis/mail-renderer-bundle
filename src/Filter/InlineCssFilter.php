@@ -2,20 +2,13 @@
 
 namespace Maba\Bundle\MailRendererBundle\Filter;
 
-use Assetic\AssetManager;
+use Maba\Bundle\MailRendererBundle\Asset\AssetProviderInterface;
 use Maba\Bundle\MailRendererBundle\InlineCss\StyleToInlineConverter;
 
 class InlineCssFilter implements FilterInterface
 {
-    /**
-     * @var StyleToInlineConverter
-     */
     protected $styleToInlineConverter;
-
-    /**
-     * @var AssetManager
-     */
-    protected $assetManager;
+    protected $assetProvider;
 
     /**
      * @var string name of asset to include in emails inlined as styles
@@ -24,23 +17,23 @@ class InlineCssFilter implements FilterInterface
 
 
     /**
-     * @param AssetManager $assetManager
+     * @param AssetProviderInterface $assetProvider
      * @param StyleToInlineConverter $styleToInlineConverter
      * @param string $cssAsset
      */
     public function __construct(
-        AssetManager $assetManager,
+        AssetProviderInterface $assetProvider,
         StyleToInlineConverter $styleToInlineConverter,
         $cssAsset
     ) {
-        $this->assetManager = $assetManager;
+        $this->assetProvider = $assetProvider;
         $this->styleToInlineConverter = $styleToInlineConverter;
         $this->cssAsset = $cssAsset;
     }
 
     public function filter($content)
     {
-        $css = $this->assetManager->get($this->cssAsset)->dump();
+        $css = $this->assetProvider->getAssetContent($this->cssAsset);
         return $this->styleToInlineConverter->inlineCSS($content, $css);
     }
 }
