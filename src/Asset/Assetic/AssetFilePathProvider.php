@@ -23,6 +23,7 @@ class AssetFilePathProvider
             mkdir($directory);
         }
 
-        return preg_replace('/[^a-z_\-0-9]/i', '', $assetName) . '-' . sha1($assetName);
+        $filename = preg_replace('/[^a-z_\-0-9]/i', '', $assetName) . '-' . sha1($assetName);
+        return $directory . DIRECTORY_SEPARATOR . $filename;
     }
 }
